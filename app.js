@@ -70,4 +70,7 @@ function KeyCheck(event) {
     else if (/[0-9()+\-*/.]/.test(key)) {
         document.getElementById("result").value += key;
     }
+ else if (key === "=") {
+        solve();
+    }
 }
