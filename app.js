@@ -1,7 +1,7 @@
 displayContent = () => {
     document.getElementById("main").innerHTML = `<table border="1">
     <tr>
-      <td colspan="3"><input type="text" id="result" /></td>
+      <td colspan="3"><input type="text" id="result" disabled/></td>
       <td><input type="button" value="c" onclick="clr()" /></td>
     </tr>
     <tr>
@@ -23,7 +23,7 @@ displayContent = () => {
       <td><input type="button" value="+" onclick="dis('+')" /></td>
     </tr>
     <tr>
-      <td><input type="button" value="." onclick="dis('.')" /></td>
+      <td><input type="button" value="bs" onclick="bs()" /></td>
       <td><input type="button" value="0" onclick="dis('0')" /></td>
       <!-- solve function call function solve to evaluate value -->
       <td><input type="button" value="=" onclick="solve()" /></td>
@@ -36,12 +36,17 @@ function dis(val) {
     document.getElementById("result").value += val
 }
 
+function bs() {
+	 let presentValue = document.getElementById("result").value;
+	 let newValue = presentValue.substring(0, presentValue.length - 1);
+     document.getElementById("result").value = newValue;
+}
+
 //function that evaluates the digit and return result 
 function solve() {
     try {
         let x = document.getElementById("result").value
         let y = eval(x);
-        console.log(y);
         document.getElementById("result").value = y
     }
     catch (err) {
@@ -56,16 +61,13 @@ function clr() {
 
 document.addEventListener("keydown", KeyCheck);
 function KeyCheck(event) {
-    let presentValue = document.getElementById("result").value;
+   
     let keyId = event.keyCode;
     let key = event.key;
-    console.log(key);
-    console.log(keyId);
 
     //For backspace
     if (keyId === 8) {
-        let newValue = presentValue.substring(0, presentValue.length - 1);
-        document.getElementById("result").value = newValue;
+      bs();
     }
     else if (/[0-9()+\-*/.]/.test(key)) {
         document.getElementById("result").value += key;
